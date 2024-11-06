@@ -34,76 +34,26 @@ class TableDB:
         return -1
 
 
-# Print the average temperature of all the cities
-print("The average temperature of all the cities:")
-temps = []
-for city in cities:
-    temps.append(float(city['temperature']))
-print(sum(temps) / len(temps))
-print()
+class Table:
+    def __init__(self, table_name, table):
+        self.table_name = table_name
+        self.table = table
 
-# Print all cities in Italy
-cities_temp = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        cities_temp.append(city['city'])
-print("All the cities in", my_country, ":")
-print(cities_temp)
-print()
+    def filter(self, condition):
+        filtered_list = []
+        for item1 in self.table:
+            if condition(item1):
+                filtered_list.append(item1)
+        return filtered_list
 
-# Print the average temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The average temperature of all the cities in", my_country, ":")
-print(sum(temps) / len(temps))
-print()
+    def aggregate(self, aggregation_function, aggregation_key):
+        temps = []
+        for _item in self.table:
+            temps = [].append(float(_item[aggregation_key]))
+        return aggregation_function(temps)
 
-# Print the max temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The max temperature of all the cities in", my_country, ":")
-print(max(temps))
-print()
-
-# Print the min temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The min temperature of all the cities in", my_country, ":")
-print(min(temps))
-print()
-
-
-# Let's write a function to filter out only items that meet the condition
-# Hint: condition will be associated with an anonymous function, e.x., lamdbda x: max(x)
-def filter(condition, dict_list):
-    filtered_list = []
-    for item1 in dict_list:
-        if condition(item1):
-            filtered_list.append(item1)
-    return filtered_list
-
-
-x = filter(lambda x: float(x['latitude']) >= 60.0, cities)
-for item in x:
-    print(item)
-
-
-# Let's write a function to do aggregation given an aggregation function and an aggregation key
-def aggregate(aggregation_key, aggregation_function, dict_list):
-    temps = []
-    for item1 in dict_list:
-        temps.append(float(item1[aggregation_key]))
-    return aggregation_function(temps)
+    def __str__(self):
+        return self.table_name + ':' + str(self.table)
 
 # Let's write code to
 # - print the average temperature for all the cities in Italy

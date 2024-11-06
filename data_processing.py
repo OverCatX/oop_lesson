@@ -7,13 +7,32 @@ cities = []
 with open(os.path.join(__location__, 'Cities.csv')) as f:
     rows = csv.DictReader(f)
     for r in rows:
-        cities.append(dict(r))
+        cities.append(r)
 
 countries = []
 with open(os.path.join(__location__, 'Countries.csv')) as f:
     rows = csv.DictReader(f)
     for r in rows:
-        countries.append(dict(r))
+        countries.append(r)
+
+
+class TableDB:
+    def __init__(self):
+        self.table_database = []
+
+    def insert(self, table):
+        _index = self.search(table.table_name)
+        if _index == -1:
+            self.table_database.append(table)
+        else:
+            print(table, "Duplicated table")
+
+    def search(self, table_name):
+        for i in range(len(self.table_database)):
+            if self.table_database[i].table_name == table_name:
+                return i
+        return -1
+
 
 # Print the average temperature of all the cities
 print("The average temperature of all the cities:")

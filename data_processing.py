@@ -90,8 +90,8 @@ for tables in table3.table:
 
 for tables in my_table1.table:
     table5 = my_table1.filter(lambda x: x['country'] == tables['country'])
-    print(f'Min latitude in {tables['country']}')
+    print(f'Min latitude in {tables['country']}, {tables['city']}')
     print(table5.aggregate(lambda x: min(x), 'latitude'))
-    print(f'Max latitude in {tables['country']}')
+    print(f'Max latitude in {tables['country']}, {tables['city']}')
     print(table5.aggregate(lambda x: max(x), 'latitude'))
     print('')
